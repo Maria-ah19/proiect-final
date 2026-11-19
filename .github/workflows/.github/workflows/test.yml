@@ -1,0 +1,21 @@
+name: UI & Repository Checks
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify-html:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check index.html exists and is non-empty
+        run: |
+          test -f index.html
+          test -s index.html
+          grep -q "Pagina Principala" index.html
+          echo "index.html check passed successfully!"
